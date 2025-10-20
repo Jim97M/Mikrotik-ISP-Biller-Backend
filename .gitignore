@@ -1,8 +1,12 @@
 HELP.md
 portalmanagement/target/
 userservice/target/
+api-gateway/target/
+discovery-service/target/
 userservice/.mvn/wrapper/maven-wrapper.jar
 portalmanagement/.mvn/wrapper/maven-wrapper.jar
+api-gateway/.mvn/wrapper/maven-wrapper.jar
+discovery-service/.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
@@ -19,6 +23,9 @@ portalmanagement/.mvn/wrapper/maven-wrapper.jar
 userservice/.idea
 
 portalmanagement/.idea
+api-gateway/.idea
+
+discovery-service/.idea
 
 ### NetBeans ###
 /nbproject/private/
