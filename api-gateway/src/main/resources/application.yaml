@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: api-gateway
+  zipkin: http://127.0.01:9411/
+  sleuth:
+    sampler:
+      probability: 1
+  cloud:
+    gateway:
+      routes:
+
