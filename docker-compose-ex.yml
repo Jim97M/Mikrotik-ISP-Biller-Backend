@@ -1,17 +1,42 @@
 services:
-  postgres-order:
-    container_name: postgres-order
-    image: postgres
-    environment:
-      POSTGRES_DB: user-service
-      POSTGRES_USER: userservice
-      POSTGRES_PASSWORD: yourpassword
-      PGDATA: /data/postgres
-    volumes:
-      - ./postgres-order:/data/postgres
-    expose:
-      - "5431"
+
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
     ports:
-      - "5431:5431"
-    command: -p 5431
+      - "27017:27017"
+    volumes:
+      - ./apps/mongo:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME:root
+      - MONGO_INITDB_ROOT_PASSWORD:S3cret
+      - MONGO_INITDB_DATABASE:testdb
+  postgres-user:
+    container_name: postgres-user
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: routerconnector
+      POSTGRES_PASSWORD: yourpassword
+      POSTGRES_DB: microservice
+    volumes:
+      - postgres_user_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
     restart: unless-stopped
+
+  postgres-portal:
+    container_name: postgres-portal
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: routerconnector
+      POSTGRES_PASSWORD: yourpassword
+      POSTGRES_DB: microservice
+    volumes:
+      - postgres_portal_data:/var/lib/postgresql/data
+    ports:
+      - "5434:5432"
+    restart: unless-stopped
+
+volumes:
+  postgres_user_data:
+  postgres_portal_data:

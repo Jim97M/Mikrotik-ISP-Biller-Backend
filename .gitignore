@@ -9,7 +9,7 @@ api-gateway/.mvn/wrapper/maven-wrapper.jar
 discovery-service/.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
-
+apps/**
 ### STS ###
 .apt_generated
 .classpath

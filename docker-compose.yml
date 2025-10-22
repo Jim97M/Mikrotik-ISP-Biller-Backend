@@ -120,19 +120,6 @@ services:
       - MONGO_INITDB_ROOT_USERNAME:root
       - MONGO_INITDB_ROOT_PASSWORD:S3cret
       - MONGO_INITDB_DATABASE:testdb
-
-  postgres:
-    container_name: postgres
-    image: postgres:latest
-    environment:
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: 55
-      POSTGRES_DB: microservice
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
-    ports:
-      - "5432:5432"
-
   keycloak:
     image: quay.io/keycloak/keycloak:legacy
     container_name: keycloak
