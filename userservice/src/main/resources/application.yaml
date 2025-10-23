@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: userservice
+  datasource:
+    url: jdbc:postgresql://localhost:5432/microservice?autoReconnect=true
+    username: ${DATABASE_USERNAME:routerconnector}
+    password: ${DATABASE_PASSWORD:yourpassword}
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.yaml
+    enabled: true
+    default-schema: public

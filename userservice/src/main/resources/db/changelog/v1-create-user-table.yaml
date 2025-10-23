@@ -1,0 +1,104 @@
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-user-table
+      author: system
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: email
+                  type: varchar(254)
+                  constraints:
+                    nullable: false
+                    unique: true
+
+              - column:
+                  name: username
+                  type: varchar(254)
+
+              - column:
+                  name: firstname
+                  type: varchar(254)
+
+              - column:
+                  name: lastname
+                  type: varchar(254)
+
+              - column:
+                  name: activated
+                  type: boolean
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: email_verified
+                  type: boolean
+                  defaultValueBoolean: false
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: password_hash
+                  type: varchar(60)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: phone_number
+                  type: varchar(60)
+
+              - column:
+                  name: user_type
+                  type: varchar(50)
+
+              - column:
+                  name: first_authentication
+                  type: boolean
+
+              - column:
+                  name: initial_password
+                  type: boolean
+
+              - column:
+                  name: verification_otp
+                  type: varchar(60)
+
+              - column:
+                  name: forgot_password_otp
+                  type: varchar(60)
+
+              - column:
+                  name: otp_created_at
+                  type: bigint
+
+              - column:
+                  name: verification_otp_created
+                  type: bigint
+
+              - column:
+                  name: reset_password_otp_created
+                  type: bigint
+
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: updated_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false

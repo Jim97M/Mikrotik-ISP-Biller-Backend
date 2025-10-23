@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - changeSet:
+      id: 004-create-available-services-table
+      author: system
+      changes:
+        - createTable:
+            tableName: available_services
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: module_name
+                  type: varchar(255)
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: module_description
+                  type: varchar(500)
+
+              - column:
+                  name: user_roles
+                  type: bigint
+
+              - column:
+                  name: created_by
+                  type: bigint
+
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+
+              - column:
+                  name: updated_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+
+        - addForeignKeyConstraint:
+            baseTableName: available_services
+            baseColumnNames: user_roles
+            referencedTableName: user_roles
+            referencedColumnNames: id
+            constraintName: fk_available_services_role
+            onDelete: SET NULL
+
+        - addForeignKeyConstraint:
+            baseTableName: available_services
+            baseColumnNames: created_by
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_available_services_created_by
+            onDelete: CASCADE

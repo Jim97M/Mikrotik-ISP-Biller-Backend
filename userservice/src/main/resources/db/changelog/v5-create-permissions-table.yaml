@@ -1,0 +1,45 @@
+databaseChangeLog:
+  - changeSet:
+      id: 005-create-service-permissions-table
+      author: system
+      changes:
+        - createTable:
+            tableName: service_permissions
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: permission_name
+                  type: varchar(255)
+
+              - column:
+                  name: permission_description
+                  type: varchar(500)
+
+              - column:
+                  name: created_by
+                  type: bigint
+
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+
+              - column:
+                  name: updated_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+
+        - addForeignKeyConstraint:
+            baseTableName: service_permissions
+            baseColumnNames: created_by
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_service_permissions_created_by
+            onDelete: CASCADE

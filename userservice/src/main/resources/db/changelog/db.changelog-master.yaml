@@ -1,0 +1,13 @@
+databaseChangeLog:
+  - include:
+      file: db/changelog/v1-create-user-table.yaml          # only users
+  - include:
+      file: db/changelog/v2-create-roles-table.yaml         # user_roles
+  - include:
+      file: db/changelog/v3-create-user-roles-mapping.yaml  # mapping (after roles)
+  - include:
+      file: db/changelog/v4-create-services-table.yaml
+  - include:
+      file: db/changelog/v5-create-permissions-table.yaml
+  - include:
+      file: db/changelog/v6-create-role-permissions-table.yaml

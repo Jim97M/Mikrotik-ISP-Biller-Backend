@@ -1,0 +1,95 @@
+databaseChangeLog:
+  - changeSet:
+      id: 006-create-role-permissions-table
+      author: system
+      changes:
+        - createTable:
+            tableName: role_permissions
+            columns:
+              - column:
+                  name: id
+                  type: bigint
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+
+              - column:
+                  name: module_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: role_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: permission_id
+                  type: bigint
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: assigned_by
+                  type: bigint
+
+              - column:
+                  name: updated_by
+                  type: bigint
+
+              - column:
+                  name: created_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: updated_at
+                  type: timestamp
+                  defaultValueComputed: CURRENT_TIMESTAMP
+                  constraints:
+                    nullable: false
+
+        - addForeignKeyConstraint:
+            baseTableName: role_permissions
+            baseColumnNames: module_id
+            referencedTableName: available_services
+            referencedColumnNames: id
+            constraintName: fk_role_permissions_module
+            onDelete: CASCADE
+
+        - addForeignKeyConstraint:
+            baseTableName: role_permissions
+            baseColumnNames: role_id
+            referencedTableName: user_roles
+            referencedColumnNames: id
+            constraintName: fk_role_permissions_role
+            onDelete: CASCADE
+
+        - addForeignKeyConstraint:
+            baseTableName: role_permissions
+            baseColumnNames: permission_id
+            referencedTableName: service_permissions
+            referencedColumnNames: id
+            constraintName: fk_role_permissions_permission
+            onDelete: CASCADE
+
+        - addForeignKeyConstraint:
+            baseTableName: role_permissions
+            baseColumnNames: assigned_by
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_role_permissions_assigned_by
+            onDelete: SET NULL
+
+        - addForeignKeyConstraint:
+            baseTableName: role_permissions
+            baseColumnNames: updated_by
+            referencedTableName: users
+            referencedColumnNames: id
+            constraintName: fk_role_permissions_updated_by
+            onDelete: SET NULL
