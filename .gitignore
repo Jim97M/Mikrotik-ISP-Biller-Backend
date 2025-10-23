@@ -2,6 +2,10 @@ HELP.md
 portalmanagement/target/
 userservice/target/
 api-gateway/target/
+kafka3/**
+kafka2/**
+kafka1/**
+out/**
 discovery-service/target/
 userservice/.mvn/wrapper/maven-wrapper.jar
 portalmanagement/.mvn/wrapper/maven-wrapper.jar
