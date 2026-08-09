@@ -25,6 +25,6 @@ WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 
 # Adjust if your service listens on a different port
-EXPOSE 8080
+EXPOSE 8888
 
 ENTRYPOINT ["java", "-jar", "app.jar"]
