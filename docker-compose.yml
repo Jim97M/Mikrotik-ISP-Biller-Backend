@@ -219,11 +219,11 @@ services:
     networks:
       - microservices-net
 
-  portalmanagement:
+  portal-management:
     build:
-      context: ./portalmanagement
+      context: ./portal-management
       dockerfile: Dockerfile
-    container_name: portalmanagement
+    container_name: portal-management
     ports:
       - "8082:8082"
     environment:
@@ -302,7 +302,7 @@ services:
         condition: service_healthy
       userservice:
         condition: service_started
-      portalmanagement:
+      portal-management:
         condition: service_started
       notification-service:
         condition: service_started
