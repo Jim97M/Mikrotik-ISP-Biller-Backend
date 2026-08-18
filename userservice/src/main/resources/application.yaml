@@ -1,10 +1,15 @@
+server:
+  port: 8081
+
 spring:
   application:
     name: userservice
+
   datasource:
-    url: jdbc:postgresql://localhost:5432/microservice?autoReconnect=true
-    username: ${DATABASE_USERNAME:routerconnector}
-    password: ${DATABASE_PASSWORD:yourpassword}
+    url: jdbc:postgresql://localhost:5433/auth_db?autoReconnect=true
+    username: ${DATABASE_USERNAME:auth_user}
+    password: ${DATABASE_PASSWORD:auth_pass}
+
   liquibase:
     change-log: classpath:db/changelog/db.changelog-master.yaml
     enabled: true

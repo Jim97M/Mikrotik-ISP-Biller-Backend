@@ -1,7 +1,10 @@
 HELP.md
-portalmanagement/target/
+portal-management/target/
 userservice/target/
 api-gateway/target/
+notification-service/target/
+eureka-server/target/
+.env
 kafka3/**
 kafka2/**
 kafka1/**

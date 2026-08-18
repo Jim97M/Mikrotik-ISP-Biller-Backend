@@ -1,4 +1,4 @@
-package main.java.com.userservice.entity;
+package com.userservice.entity;
 
 public class UserProfile {
 }

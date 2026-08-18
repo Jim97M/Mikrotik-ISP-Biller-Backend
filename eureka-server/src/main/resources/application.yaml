@@ -1,3 +1,14 @@
+eureka:
+  client:
+    enabled: false          # ← this is the key line — prevents EurekaClient bean creation entirely
+    register-with-eureka: false
+    fetch-registry: false
+  instance:
+    hostname: eureka-server
+
 spring:
   application:
     name: eureka-server
+
+server:
+  port: 8761

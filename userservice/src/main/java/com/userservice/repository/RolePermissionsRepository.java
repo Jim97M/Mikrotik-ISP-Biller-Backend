@@ -1,4 +1,21 @@
 package com.userservice.repository;
 
-public interface RolePermissionsRepository {
+import com.userservice.entity.RolePermissions;
+import com.userservice.entity.UserRoles;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+
+@Repository
+public interface RolePermissionsRepository extends JpaRepository<RolePermissions, Long> {
+
+    List<RolePermissions> findByUserRoles(UserRoles userRoles);
+
+    @Modifying
+    @Transactional
+    void deleteByUserRoles(UserRoles role);
+
 }

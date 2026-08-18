@@ -1,15 +1,8 @@
 version: '3.8'
-
-# ============================================================
-# Shared network so all services can resolve each other by name
-# ============================================================
 networks:
   microservices-net:
     driver: bridge
 
-# ============================================================
-# Named volumes for data persistence
-# ============================================================
 volumes:
   kafka-data:
   redis-data:
@@ -19,16 +12,13 @@ volumes:
 
 services:
 
-  # ============================================================
-  # KAFKA (KRaft mode — no Zookeeper required)
-  # ============================================================
   kafka:
     image: confluentinc/cp-kafka:7.6.0
     container_name: kafka
     hostname: kafka
     ports:
-      - "9092:9092"     # external (host) access
-      - "9093:9093"     # controller port
+      - "9092:9092"
+      - "9093:9093"
     environment:
       KAFKA_NODE_ID: 1
       KAFKA_PROCESS_ROLES: broker,controller
@@ -51,8 +41,6 @@ services:
       interval: 10s
       timeout: 10s
       retries: 5
-
-  # Optional UI to inspect Kafka topics/messages in the browser
   kafka-ui:
     image: provectuslabs/kafka-ui:latest
     container_name: kafka-ui
@@ -65,10 +53,6 @@ services:
       - kafka
     networks:
       - microservices-net
-
-  # ============================================================
-  # REDIS (OTP storage, caching, rate limiting)
-  # ============================================================
   redis:
     image: redis:7.2-alpine
     container_name: redis
@@ -83,10 +67,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
-  # ============================================================
-  # POSTGRES — one database instance per service (isolated)
-  # ============================================================
   auth-db:
     image: postgres:16-alpine
     container_name: auth-db
@@ -143,11 +123,6 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-
-  # ============================================================
-  # EUREKA SERVER — service discovery
-  # (build your own image via Dockerfile in eureka-server/)
-  # ============================================================
   eureka-server:
     build:
       context: ./eureka-server
@@ -162,11 +137,6 @@ services:
       interval: 15s
       timeout: 5s
       retries: 5
-
-  # ============================================================
-  # CONFIG SERVER — centralized configuration
-  # (build your own image via Dockerfile in config-server/)
-  # ============================================================
   config-server:
     build:
       context: ./config-server
@@ -188,20 +158,17 @@ services:
       timeout: 5s
       retries: 5
 
-  # ============================================================
-  # AUTH SERVICE (gRPC server + REST)
-  # ============================================================
   userservice:
     build:
       context: ./userservice
       dockerfile: Dockerfile
     container_name: auth-service
     ports:
-      - "8081:8081"   # REST
-      - "9090:9090"   # gRPC
+      - "8081:8081"
+      - "9090:9090"
     environment:
       SPRING_PROFILES_ACTIVE: docker
-      SPRING_DATASOURCE_URL: jdbc:postgresql://auth-db:5432/auth_db
+      SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5433/auth_db
       SPRING_DATASOURCE_USERNAME: auth_user
       SPRING_DATASOURCE_PASSWORD: auth_pass
       EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
@@ -249,9 +216,6 @@ services:
         condition: service_healthy
     networks:
       - microservices-net
-  # ============================================================
-  # NOTIFICATION SERVICE (OTP, email, SMS)
-  # ============================================================
   notification-service:
     build:
       context: ./notification-service
@@ -283,9 +247,6 @@ services:
     networks:
       - microservices-net
 
-  # ============================================================
-  # API GATEWAY — single entry point (optional but recommended)
-  # ============================================================
   api-gateway:
     build:
       context: ./api-gateway
