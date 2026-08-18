@@ -1,3 +1,29 @@
 spring:
   application:
     name: notification-service
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:kafka:29092}
+    consumer:
+      group-id: notification-service
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "com.notification_service.notification.event"
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  mail:
+    host: ${SPACESHIP_SMTP_HOST}
+    port: ${SPACESHIP_SMTP_PORT:587}
+    username: ${SPACESHIP_SMTP_USER}
+    password: ${SPACESHIP_SMTP_PASS}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+
+notification:
+  from-email: ${SPACESHIP_FROM_EMAIL}

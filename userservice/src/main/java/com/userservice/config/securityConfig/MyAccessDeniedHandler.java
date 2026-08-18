@@ -1,0 +1,4 @@
+package com.userservice.config.securityConfig;
+
+public class MyAccessDeniedHandler {
+}
