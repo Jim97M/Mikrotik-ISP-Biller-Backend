@@ -221,6 +221,8 @@ services:
       context: ./notification-service
       dockerfile: Dockerfile
     container_name: notification-service
+    env_file:
+      - .env                                    # ← pulls in SPACESHIP_SMTP_*, etc. from root .env
     ports:
       - "8083:8083"
     environment:

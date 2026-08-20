@@ -18,6 +18,7 @@ spring:
     port: ${SPACESHIP_SMTP_PORT:587}
     username: ${SPACESHIP_SMTP_USER}
     password: ${SPACESHIP_SMTP_PASS}
+    from: ${SPACESHIP_FROM_EMAIL}
     properties:
       mail:
         smtp:
